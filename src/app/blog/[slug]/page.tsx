@@ -2,10 +2,18 @@ import React from "react";
 import { getPostBySlug } from "@/sanity/sanity-utils";
 import RenderBodyContent from "@/components/Blog/RenderBodyContent";
 
+// Define the props type for the page
+interface PageProps {
+  params: {
+    slug: string; // Ensure slug is a string
+  };
+}
 
-const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
+const SingleBlogPage = async ({ params }: PageProps) => {
   try {
-    const post = await getPostBySlug(params.slug);
+    // Ensure params.slug is properly typed and accessible
+    const slug = await Promise.resolve(params.slug); // Ensure compatibility
+    const post = await getPostBySlug(slug);
 
     if (!post) {
       return <div>Post not found</div>;
@@ -16,7 +24,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
         <div className="mb-5">
           <h1 className="text-4xl py-2">{post.title}</h1>
           <p className="pb-1">
-            <span className="font-medium">Published:</span>
+            <span className="font-medium">Published:</span>{" "}
             {new Date(post.publishedAt).toDateString()}
             <span className="font-medium pl-2">by </span>
             {post.author?.name || "Unknown"}

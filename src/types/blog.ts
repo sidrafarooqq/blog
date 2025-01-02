@@ -1,4 +1,4 @@
-import { PortableTextBlock } from "sanity";
+import { PortableTextBlock, Slug } from "sanity";
 
 export type Author = {
   name: string,
@@ -14,10 +14,10 @@ export type Author = {
 export type Blog = {
   _id: number,
   title: string,
-  slug: any,
+  slug: Slug,
   metadata: string,
   body: PortableTextBlock[],
-  mainImage: any,
+  mainImage: unknown,
   author: Author,
   tags: string[],
   publishedAt: string,
